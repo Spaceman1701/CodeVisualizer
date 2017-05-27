@@ -5,11 +5,14 @@ module.exports=
       commands = while (@data.length > 0)
         index = @data.indexOf(':')
         length = parseInt(@data.substring(0, index))
-        command = @data.substring(index, index + length)
+        command = @data.substring(index + 1, index + length)
         @data = @data.substring(index + length, @data.length)
-        @i = @i + 1
         command
+      for command in commands
+        @parseCommand command
 
+    parseCommand: (command) ->
+      console.log command
 
     printAThing: ->
       console.log "a thing"
