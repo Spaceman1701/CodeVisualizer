@@ -19,6 +19,7 @@ module.exports =
       pyname = 'python'
       pathName = path.join(atom.packages.getPackageDirPaths()[0], 'visualizer', 'python')
       python = spawn pyname, [path.join(pathName, 'runner.py')]
+      python.stdin.write('x = 2; //and other code \n')
       data = ""
       python.stdout.on 'data', (chunk) ->
         data = (String.fromCharCode(c) for c in chunk).join("")
