@@ -15,9 +15,6 @@ module.exports =
       @vt = new VisualizerTab "I'm Alive!"
       atom.workspace.getActivePane().activateItem @vt
       v = @vt.getView()
-      v.resizeCanvas 800, 800
-      v.drawLine 0, 0, 800, 800
-      v.drawLine 800, 0, 0, 800, 10
 
       pyname = 'python'
       pathName = path.join(atom.packages.getPackageDirPaths()[0], 'visualizer', 'python')

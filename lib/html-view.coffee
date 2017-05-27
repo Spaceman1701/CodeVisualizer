@@ -15,12 +15,16 @@ class HtmlTabView extends View
       @canvas width:@x, height:@y
 
   getCanvasCtx: ->
-    @find('canvas')[0].getContext("2d")
+    ctx = @find('canvas')[0].getContext("2d")
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx
 
-  drawLine: (x, y, endx, endy, width=2, strColor='rgb(0, 0, 0)') ->
+  drawLine: (x, y, endx, endy, width=2, strColor='rgb(0, 0, 0)', shadow=0) ->
     context = @getCanvasCtx()
     context.lineWidth = width
     context.strokeStyle = strColor
+    context.shadowBlur=shadow
+    context.shadowColor='black'
     context.beginPath()
     context.moveTo x, y
     context.lineTo endx, endy
