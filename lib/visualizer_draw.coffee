@@ -30,6 +30,7 @@ module.exports=
 
     parseTextCommand: (command) ->
       console.log "text " + command
+      
 
     printAThing: ->
       console.log "a thing"
