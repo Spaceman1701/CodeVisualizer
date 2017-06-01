@@ -25,9 +25,9 @@ class TextCommand:
         self.shadow = shadow
 
     def generate_command(self):
-        strcmd = ":T:" + str(self.loc[0]) + "," + str(self.loc[1]) + "," + str(self.size) + ",\"" + \
-            str(self.text) + "\"," + str(self.color[0]) + "," + str(self.color[1]) + "," + \
-            str(self.color[2]) + "," + str(self.shadow) ",\"" + str(self.text) + "\","
+        strcmd = ":T:" + str(self.loc[0]) + "," + str(self.loc[1]) + "," + str(self.size) + \
+            str(self.color[0]) + "," + str(self.color[1]) + "," + \
+            str(self.color[2]) + "," + str(self.shadow) + ',"' + str(self.text) + '"'
         length = str(len(strcmd))
         return length + strcmd
 
@@ -39,27 +39,24 @@ class Context:
     def addCommand(self, cmd):
         self.commands.append(cmd)
 
+def dothing():
+    imp_loc = input()
+    text = input()
 
-if sys.version_info[0] < 3:
-    print("requires python 3")
+    ctx = Context()
 
-imp_loc = input()
-imp_name = input()
-text = input()
+    exec(open(imp_loc).read(), globals())
+    parse("", ctx)
 
-ctx = Context()
+    for command in ctx.commands:
+        sys.stdout.write(command.generate_command())
 
-doimp = False
-if doimp:
-    sys.path.insert(1, imp_loc)
-    from imp_name import parse
-    parse(text, ctx)
-else:
-    from parser import parse
-    parse(text, ctx)
+if __name__ == '__main__':
+    if sys.version_info[0] < 3:
+        print("requires python 3")
+    dothing()
 
-for command in ctx.commands:
-    sys.stdout.write(command.generate_command())
+
 
 #sys.stdout.write("CMD_LENGTH:L:X,Y,END_X,END_Y,WIDTH,RED,GREEN,BLUE,SHADOW~")
 #sys.stdout.write("CMD_LENGTH:T:X,Y,SIZE,'this is text',RED,GREEN,BLUE,SHADOW~")

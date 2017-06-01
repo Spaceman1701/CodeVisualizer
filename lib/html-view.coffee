@@ -1,18 +1,23 @@
 {View} = require 'space-pen'
+electron = require "electron"
 
 module.exports =
 class HtmlTabView extends View
   constructor: (title) ->
     super
-    @x = 640
-    @y = 640
+
     console.log "new"
     atom.workspace.getActivePaneItem().setView(@)
+    console.log atom.styles.getUserStyleSheetPath()
 
+  initialize: ->
+    w = atom.workspace.getActivePane().element.clientWidth
+    h = atom.workspace.getActivePane().element.clientHeight
+    @resizeCanvas(w, h)
 
   @content: ->
     @div =>
-      @canvas width:@x, height:@y
+      @canvas width:@x, height:@y, style:"border:10px solid #000000;"
 
   getCanvasCtx: ->
     ctx = @find('canvas')[0].getContext("2d")
@@ -38,3 +43,5 @@ class HtmlTabView extends View
     canvas = @find('canvas')[0]
     canvas.width = width
     canvas.height = height
+    @x = width
+    @y = height

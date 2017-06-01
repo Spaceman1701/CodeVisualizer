@@ -19,7 +19,6 @@ module.exports=
         when 'T' then @parseTextCommand command.substring(2, command.length)
 
     parseLineCommand: (command) ->
-      console.log "line " + command
       args = command.split(',')
       startX = parseInt(args[0])
       startY = parseInt(args[1])
@@ -30,7 +29,7 @@ module.exports=
 
     parseTextCommand: (command) ->
       console.log "text " + command
-      
+
 
     printAThing: ->
       console.log "a thing"

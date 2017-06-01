@@ -19,12 +19,14 @@ module.exports =
       pyname = 'python'
       pathName = path.join(atom.packages.getPackageDirPaths()[0], 'visualizer', 'python')
       python = spawn pyname, [path.join(pathName, 'runner.py')]
+      python.stdin.write(path.join(pathName, 'parser.py') + '\n')
       python.stdin.write('x = 2; //and other code \n')
       data = ""
       python.stdout.on 'data', (chunk) ->
         data = (String.fromCharCode(c) for c in chunk).join("")
         vd = new VisualizerDraw(v, data)
-        vd.printAThing()
+      python.stderr.on 'data', (chunk) ->
+        console.error  (String.fromCharCode(c) for c in chunk).join("")
 
 
   deactivate: ->
