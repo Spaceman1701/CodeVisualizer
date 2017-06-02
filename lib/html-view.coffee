@@ -17,7 +17,7 @@ class HtmlTabView extends View
 
   @content: ->
     @div =>
-      @canvas width:@x, height:@y, style:"border:10px solid #000000;"
+      @canvas width:@x, height:@y, style:"border:2px solid #000000;"
 
   setAspectRatio: (ratio) ->
     if ratio > 1
