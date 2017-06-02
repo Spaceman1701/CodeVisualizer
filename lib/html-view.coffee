@@ -11,13 +11,26 @@ class HtmlTabView extends View
     console.log atom.styles.getUserStyleSheetPath()
 
   initialize: ->
-    w = atom.workspace.getActivePane().element.clientWidth
-    h = atom.workspace.getActivePane().element.clientHeight
+    w = atom.workspace.getActivePane().element.clientWidth - 32
+    h = atom.workspace.getActivePane().element.clientHeight - 64
     @resizeCanvas(w, h)
 
   @content: ->
     @div =>
       @canvas width:@x, height:@y, style:"border:10px solid #000000;"
+
+  setAspectRatio: (ratio) ->
+    if ratio > 1
+      scale = 1.0 / ratio
+      @y = @x * scale
+    else if ratio < 1
+      @x = ratio * @y
+    else
+      if @x < @y
+        @y = @x
+      else
+        @x = @y
+    @resizeCanvas @x, @y
 
   getCanvasCtx: ->
     ctx = @find('canvas')[0].getContext("2d")

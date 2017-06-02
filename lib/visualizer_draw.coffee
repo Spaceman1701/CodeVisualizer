@@ -2,6 +2,8 @@
 module.exports=
   class VisualizerDraw
     constructor: (@view, @data) ->
+      ratio = parseFloat(@data.substring(0, @data.indexOf('@')))
+      @data = @data.substring(@data.indexOf('@') + 1, @data.length)
       commands = while (@data.length > 0)
         index = @data.indexOf(':')
         length = parseInt(@data.substring(0, index))
@@ -20,12 +22,22 @@ module.exports=
 
     parseLineCommand: (command) ->
       args = command.split(',')
-      startX = parseInt(args[0])
-      startY = parseInt(args[1])
-      endX = parseInt(args[2])
-      endY = parseInt(args[3])
+      startX = @computeX parseInt(args[0])
+      startY = @computeY parseInt(args[1])
+      endX = @computeX parseInt(args[2])
+      endY = @computeY parseInt(args[3])
       width = parseInt(args[4])
       @view.drawLine(startX, startY, endX, endY, width, 'rgb(' + args[5] + ',' + args[6] + ',' + args[7] + ')')
+
+    computeX: (x) ->
+      height = @view.y
+      outX = x * height / 100.0
+      outX
+
+    computeY: (y) ->
+      height = @view.y
+      outY = y * height / 100.0
+      outY
 
     parseTextCommand: (command) ->
       console.log "text " + command

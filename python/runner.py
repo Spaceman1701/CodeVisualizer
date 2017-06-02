@@ -35,9 +35,23 @@ class TextCommand:
 class Context:
     def __init__(self):
         self.commands = list()
+        self.aspectRatio = 1
 
-    def addCommand(self, cmd):
+    def add_command(self, cmd):
         self.commands.append(cmd)
+
+    def set_aspect_ratio(self, ratio):
+        if (type(ratio) is str):
+            vals = [int(x) for x in ratio.split(':')]
+            self.aspectRatio = vals[0] / vals[1]
+        else:
+            self.aspectRatio = ratio
+
+    def generate_command_string(self):
+        output = str(self.aspectRatio) + "@"
+        for command in self.commands:
+            output += command.generate_command()
+        return output
 
 def dothing():
     imp_loc = input()
@@ -48,8 +62,8 @@ def dothing():
     exec(open(imp_loc).read(), globals())
     parse("", ctx)
 
-    for command in ctx.commands:
-        sys.stdout.write(command.generate_command())
+    sys.stdout.write(ctx.generate_command_string())
+
 
 if __name__ == '__main__':
     if sys.version_info[0] < 3:

@@ -16,6 +16,8 @@ module.exports =
       atom.workspace.getActivePane().activateItem @vt
       v = @vt.getView()
 
+      v.setAspectRatio 16.0 / 9.0
+
       pyname = 'python'
       pathName = path.join(atom.packages.getPackageDirPaths()[0], 'visualizer', 'python')
       python = spawn pyname, [path.join(pathName, 'runner.py')]
