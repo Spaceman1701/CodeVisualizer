@@ -3,6 +3,7 @@ module.exports=
   class VisualizerDraw
     constructor: (@view, @data) ->
       ratio = parseFloat(@data.substring(0, @data.indexOf('@')))
+      @view.setAspectRatio ratio
       @data = @data.substring(@data.indexOf('@') + 1, @data.length)
       commands = while (@data.length > 0)
         index = @data.indexOf(':')
