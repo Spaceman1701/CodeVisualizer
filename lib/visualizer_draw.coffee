@@ -30,6 +30,17 @@ module.exports=
       width = parseInt(args[4])
       @view.drawLine(startX, startY, endX, endY, width, 'rgb(' + args[5] + ',' + args[6] + ',' + args[7] + ')')
 
+    parseTextCommand: (command) ->
+      console.log "text " + command
+      start = command.indexOf('"')
+      end = command.lastIndexOf('"')
+      message = command.substring(start + 1, end)
+      data = command.substring(0, start)
+      args = data.split(',')
+      x = @computeX parseInt(args[0])
+      y = @computeY parseInt(args[1])
+      @view.drawText x, y, message
+
     computeX: (x) ->
       height = @view.y
       outX = x * height / 100.0
@@ -39,10 +50,6 @@ module.exports=
       height = @view.y
       outY = y * height / 100.0
       outY
-
-    parseTextCommand: (command) ->
-      console.log "text " + command
-
 
     printAThing: ->
       console.log "a thing"

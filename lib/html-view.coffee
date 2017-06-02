@@ -48,6 +48,15 @@ class HtmlTabView extends View
     context.lineTo endx, endy
     context.stroke()
 
+  drawText: (x, y, text, strColor='rgb(255, 255, 255)', shadow=0) ->
+    console.log "text"
+    ctx = @getCanvasCtx()
+    ctx.font = "30px Arial"
+    ctx.fillStyle = strColor
+    ctx.shadowBlur=shadow
+    ctx.shadowColor='black'
+    ctx.fillText text, x, y
+
   clearCanvas: (x, y) ->
     context = @getCanvasCtx()
     context.clearRect 0, 0, @x, @y

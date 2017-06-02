@@ -26,7 +26,7 @@ class TextCommand:
 
     def generate_command(self):
         strcmd = ":T:" + str(self.loc[0]) + "," + str(self.loc[1]) + "," + str(self.size) + \
-            str(self.color[0]) + "," + str(self.color[1]) + "," + \
+            "," + str(self.color[0]) + "," + str(self.color[1]) + "," + \
             str(self.color[2]) + "," + str(self.shadow) + ',"' + str(self.text) + '"'
         length = str(len(strcmd))
         return length + strcmd
